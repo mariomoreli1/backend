@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Калькулятор</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo_serrv.jpg" alt="МосПолитех">
+        </div>
+        <div class="title">
+            Calculator
+        </div>
+    </header>
+    <main>
+        <div class="student-name">
+            Федоткин Арсений 251-321
+        </div>
+        <div class="calculator">
+            
+            <div class="display" id="display">0</div>
+            
+            <div class="buttons">
+                <button class="function" data-value="sqrt(">√</button>
+                <button class="function" data-value="ln(">ln</button>
+                <button class="function" data-value="log(">log</button>
+                <button class="function" data-value="fact(">!</button>
+                <button class="constant" data-value="pi">π</button>
+                <button class="constant" data-value="e">e</button>
+                
+                <button data-value="7">7</button>
+                <button data-value="8">8</button>
+                <button data-value="9">9</button>
+                <button class="operator" data-value="(">(</button>
+                <button class="operator" data-value=")">)</button>
+                <button class="function" data-value="^">xʸ</button>
+                
+                <button data-value="4">4</button>
+                <button data-value="5">5</button>
+                <button data-value="6">6</button>
+                <button class="operator" data-value="*">×</button>
+                <button class="operator" data-value="/">÷</button>
+                <button class="function" data-value="root(">x√y</button>
+                
+                <button data-value="1">1</button>
+                <button data-value="2">2</button>
+                <button data-value="3">3</button>
+                <button class="operator" data-value="+">+</button>
+                <button class="operator" data-value="-">-</button>
+                <button class="function" data-value="abs(">|x|</button>
+                
+                <button data-value="0">0</button>
+                <button data-value=".">.</button>
+                <button class="equals" id="equals">=</button>
+                <button class="clear" id="clear">C</button>
+                <button class="function" data-value="^2">x²</button>
+                <button class="function" data-value="^3">x³</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const display = document.getElementById('display');
+        
+        function addToDisplay(value) {
+            if (display.textContent === '0' && value !== '.') {
+                display.textContent = value;
+            } else {
+                display.textContent += value;
+            }
+        }
+        
+        function clearDisplay() {
+            display.textContent = '0';
+        }
+        
+        function calculate() {
+            let expression = display.textContent;
+            
+            fetch('calc.php?expression=' + encodeURIComponent(expression))
+                .then(response => response.text())
+                .then(result => {
+                    display.textContent = result;
+                })
+                .catch(() => {
+                    display.textContent = 'Ошибка';
+                });
+        }
+        
+        document.querySelectorAll('[data-value]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                addToDisplay(btn.dataset.value);
+            });
+        });
+        
+        document.getElementById('clear').addEventListener('click', clearDisplay);
+        document.getElementById('equals').addEventListener('click', calculate);
+        
+        document.addEventListener('keydown', (e) => {
+            const key = e.key;
+            
+            if (/[0-9]/.test(key)) {
+                addToDisplay(key);
+            }
+            else if (key === '+') addToDisplay('+');
+            else if (key === '-') addToDisplay('-');
+            else if (key === '*') addToDisplay('*');
+            else if (key === '/') addToDisplay('/');
+            else if (key === '(') addToDisplay('(');
+            else if (key === ')') addToDisplay(')');
+            else if (key === '^') addToDisplay('^');
+            else if (key === '.') addToDisplay('.');
+            else if (key === 'Enter') calculate();
+            else if (key === 'Escape' || key === 'c' || key === 'C') clearDisplay();
+        });
+    </script>
+</body>
+</html>

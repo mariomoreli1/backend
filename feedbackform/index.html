@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Форма обратной связи</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <img src="logo_serrv.jpg" alt="МосПолитех" width="300">
+    <h1>Форма обратной связи</h1>
+</header>
+
+<main>
+    <form method="POST" action="https://httpbin.org/post">
+        <p style="padding-bottom: 20px;">
+            <label>Имя пользователя:</label><br>
+            <input type="text" name="username" required>
+        </p>
+        
+        <p style="padding-bottom: 20px;">
+            <label>E-mail пользователя:</label><br>
+            <input type="email" name="email" required>
+        </p>
+        
+        <p style="padding-bottom: 20px;">
+            <label>Тип обращения:</label><br>
+            <select name="requestType">
+                <option>жалоба</option>
+                <option>предложение</option>
+                <option>благодарность</option>
+            </select>
+        </p>
+        
+        <p style="padding-bottom: 20px;">
+            <label>Текст обращения:</label><br>
+            <textarea name="message" rows="5" cols="40" required></textarea>
+        </p>
+        
+        <p>
+            <label>Вариант ответа:</label><br>
+            <div style="display: flex; flex-direction: column; gap: 15px; padding-bottom: 15px;">
+                <div>
+                    <input type="checkbox" name="response[]" value="sms"> смс
+                </div>
+                <div>
+                    <input type="checkbox" name="response[]" value="email"> e-mail
+                </div>
+            </div>
+        </p>
+        
+        <p>
+            <button type="submit">Отправить</button>
+            <a href="page2.php">2 страница</a>
+        </p>
+    </form>
+</main>
+
+<footer>
+    <p>задание для самостоятельной работы</p>
+</footer>
+
+</body>
+</html>
