@@ -1,9 +1,7 @@
 import subprocess
 import pytest
 
-# Для Windows
-# INTERPRETER = 'python'
-# Для MAC
+
 INTERPRETER = 'python3'
 
 
