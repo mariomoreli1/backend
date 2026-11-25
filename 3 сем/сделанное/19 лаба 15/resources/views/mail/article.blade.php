@@ -1,0 +1,7 @@
+<h2>На сайте добавлена новая статья</h2>
+
+<p><b>{{ $article->name }}</b></p>
+<p>Дата: {{ $article->date }}</p>
+<p>{{ $article->short_desc }}</p>
+
+<p><a href="{{ url('/article/' . $article->id) }}">Открыть статью</a></p>
